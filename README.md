@@ -1,4 +1,21 @@
-# building-the-best-kubernetes-test-cluster-on-macos
+# Building a K8s cluster on macOS
+
+### Target
+This project is about setting up a k8s cluster on a macOS.
+along the way we will also investigate k8s routing/iptables
+and macos routing and networking
+
+
+the cluster should contain:
+* a fully working k8s cluster
+* matallb
+* nginx ingress controller
+
+### extras
+dynamic dns resolving ?
+annotations ?
+
+
 
 
 1. install colima
@@ -9,6 +26,9 @@
 6. route docker network traffic from mac to vm
 7. add metallb
 8. add foo/bat echo app and verify load balance
+9. add nginx ingress controller service
+10. create IngressClass that uses the ingress controller
+11. create Ingress objects (routes)
 
 ### colima (docker runtime. help running containers on macOS)
 A docker runtime hosted in a vm,so containers actually running inside the vm.
@@ -19,6 +39,7 @@ setup colima:
   - create interface colima:col0:192.168.106.2 
   - create a route on macOS to route docker-net traffic to colima
   - allow incoming traffic from macOS:192.168.106:1 -> colima:docker-net(172.18/16)
+![](vm-colima.png)
 ```bash
 $ brew install colima
 $ colima start --network-address
