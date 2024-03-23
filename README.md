@@ -2,6 +2,7 @@
 
 ### Target
 This project is about setting up a k8s cluster on a macOS.
+
 I started by [This project](https://opencredo.com/blogs/building-the-best-kubernetes-test-cluster-on-macos/) and add some components.
 
 The cluster contains:
@@ -12,6 +13,7 @@ The cluster contains:
 ### Setup
 The final setup is a k8s cluster where the nodes are docker containers, Those nodes running inside a vm.
 Colima provisions that vm, so the containers are isolated from macOS.
+
 NOTES:
  * when issue `docker ps` on macOS, its targeting the docker-engine on Colima vm
  * the above can be verified by checking the context of `docker version`
@@ -25,9 +27,9 @@ NOTES:
 5. setup colima-vm to acceps connections from mac
 6. route docker network traffic from mac to colima-vm
 7. add metallb
-8. add foo/bat echo app and verify load balance
+8. add foo-bar echo app and verify load balance
 9. add nginx ingress controller service with IngressClass that uses it
-11. create Ingress objects (routes)
+11. create Ingress objects (routes) for `foo-bar` and for `foo-only`
 
 ### colima (docker runtime. help running containers on macOS)
 A docker runtime hosted in a vm,so containers actually running inside the vm.
