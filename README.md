@@ -2,32 +2,31 @@
 
 ### Target
 This project is about setting up a k8s cluster on a macOS.
-along the way we will also investigate k8s routing/iptables
-and macos routing and networking
+I started by [This project](https://opencredo.com/blogs/building-the-best-kubernetes-test-cluster-on-macos/) and add some components.
 
-
-the cluster should contain:
+The cluster contains:
 * a fully working k8s cluster
 * matallb
 * nginx ingress controller
 
-### extras
-dynamic dns resolving ?
-annotations ?
+### Setup
+The final setup is a k8s cluster where the nodes are docker containers, Those nodes running inside a vm.
+Colima provisions that vm, so the containers are isolated from macOS.
+NOTES:
+ * when issue `docker ps` on macOS, its targeting the docker-engine on Colima vm
+ * the above can be verified by checking the context of `docker version`
 
 
-
-
+### Steps
 1. install colima
 2. install docker client
-3. run colima vm
-4. deploy k8s cluster on colime vm as 3 containers (1 cp, 2 workers)
-5. setup vm to acceps connections from mac
-6. route docker network traffic from mac to vm
+3. start colima-vm
+4. deploy k8s cluster with Kind on colima-vm as 3 containers (1 cp, 2 workers)
+5. setup colima-vm to acceps connections from mac
+6. route docker network traffic from mac to colima-vm
 7. add metallb
 8. add foo/bat echo app and verify load balance
-9. add nginx ingress controller service
-10. create IngressClass that uses the ingress controller
+9. add nginx ingress controller service with IngressClass that uses it
 11. create Ingress objects (routes)
 
 ### colima (docker runtime. help running containers on macOS)
@@ -48,8 +47,18 @@ $ sudo route -nv add -net 172.18 192.168.106.2
 $ colima ssh ### this ssh to the vm. the next command should be executed inside the vm
    (colima-vm) $ sudo iptables -A FORWARD -s 192.168.106.1 -d 172.18.0.0/16 -i col0 -o br-3ca3442bb072 -p tcp -j ACCEPT
    (colima-vm) $ exit
+
+# if macOS restarts, need to start colima:
+$ colima restart
+
 ```
 ### kind
+[Kind](https://kind.sigs.k8s.io/) is a tool for running local Kubernetes clusters using Docker container nodes.
+
+```bash
+$ brew install kind
+$ kind create cluster --config=kind-config.yaml
+```
 
 
 
@@ -152,6 +161,13 @@ foo
 foo
 
 ```
+
+
+### extras
+dynamic dns resolving ?
+annotations ?
+
+
 
 
 ### Links and resources:
