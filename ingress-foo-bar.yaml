@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: foo-bar
+spec:
+  rules:
+  - host: foo-bar.chenk8s.test
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: foo-bar-service
+            port:
+              number: 5678
+      - path: /foo-only
+        pathType: Prefix
+        backend:
+          service:
+            name: foo-only-service
+            port:
+              number: 5678
+  ingressClassName: nginx
+
