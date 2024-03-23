@@ -39,7 +39,7 @@ setup colima:
   - create interface colima:col0:192.168.106.2 
   - create a route on macOS to route docker-net traffic to colima
   - allow incoming traffic from macOS:192.168.106:1 -> colima:docker-net(172.18/16)
-![](vm-colima.png)
+![](colima-vm.png)
 ```bash
 $ brew install colima
 $ colima start --network-address
