@@ -50,8 +50,10 @@ $ colima ssh ### this ssh to the vm. the next command should be executed inside 
    (colima-vm) $ sudo iptables -A FORWARD -s 192.168.106.1 -d 172.18.0.0/16 -i col0 -o br-3ca3442bb072 -p tcp -j ACCEPT
    (colima-vm) $ exit
 
-# if macOS restarts, need to start colima:
-$ colima restart
+###  if macOS restarts, need to start colima:
+#  1. $ colima restart
+#  2. add the route (TODO: make permanent)
+#  3. add iptable (TODO: make permanent)
 
 ```
 ### kind
