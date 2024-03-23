@@ -98,8 +98,18 @@ then create the Ingress object to enforce the routing:
 
 ```bash
 $ kubectl apply -f ingress-foo-bar.yaml 
+```
 
-# verify:
+### Verify:
+see below some tests
+
+```bash
+# after adding 172.18.255.201:foo-bar.chenk8s.test to /etc/hosts
+$ curl http://foo-bar.chenk8s.test
+bar
+$ curl http://foo-bar.chenk8s.test/foo-only
+foo
+
 # this is directly from metallb -> foo-bar-svc (200)
 $ curl http://172.18.255.200:5678
 
@@ -120,15 +130,7 @@ foo
 foo
 foo
 
-
 ```
-
-
-
-
-
-
-
 
 
 ### Links and resources:
